@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# AI/검색 크롤러 명시적 허용 (검색·AI 답변 노출 목적)
+User-agent: Googlebot
+Allow: /
+User-agent: Yeti
+Allow: /
+User-agent: bingbot
+Allow: /
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://realcoach1.com/sitemap.xml

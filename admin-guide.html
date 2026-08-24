@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>배수정 홈페이지 · 관리자 페이지 사용 안내서</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{--navy:#2A3560;--plum:#5E4B7B;--lavender:#7C6BAF;--pink:#E9D5E4;--pink-soft:#F4E8F1;--ink:#141219;--muted:#3E3947;--line:#E6E0DA;--ivory:#FBF9F5;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard Variable','Pretendard',sans-serif;background:var(--ivory);color:var(--ink);line-height:1.7;word-break:keep-all;padding:36px 20px;font-weight:500;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;}
+  h1{font-size:26px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-.01em;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:26px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:18px;box-shadow:0 16px 40px -26px rgba(42,53,96,.25);}
+  h2{font-size:18px;font-weight:800;color:var(--plum);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .step{display:flex;gap:12px;margin:10px 0;}
+  .step .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+  .step .t{font-size:15px;padding-top:1px;}
+  .pin{display:inline-block;background:var(--pink-soft);border:1.5px solid var(--pink);color:var(--plum);font-weight:800;font-size:22px;letter-spacing:3px;padding:8px 20px;border-radius:12px;margin:6px 0;}
+  table{width:100%;border-collapse:collapse;margin-top:6px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-size:14.5px;vertical-align:top;}
+  th{background:var(--pink-soft);color:var(--navy);font-weight:700;width:130px;white-space:nowrap;}
+  .note{background:#FFF9E9;border:1px solid #F0E2B8;border-radius:12px;padding:14px 16px;font-size:14px;color:#6b5a1e;margin-top:10px;}
+  .ok{background:#EAF7EE;border:1px solid #BFE4C9;border-radius:12px;padding:14px 16px;font-size:14px;color:#1f6b39;}
+  b{font-weight:800;} .hl{color:var(--plum);font-weight:800;}
+  .foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:20px;}
+</style></head><body>
+<div class="wrap">
+  <h1>배수정 홈페이지 · 관리자 페이지 사용 안내서</h1>
+  <p class="sub">관리자 페이지는 <b>홈페이지 안에 내장</b>되어 있습니다. 별도 주소·파일이 아니라, 홈페이지 화면에서 바로 열립니다.</p>
+
+  <div class="card">
+    <h2>🔑 1. 관리자 페이지 여는 방법</h2>
+    <div class="step"><span class="n">1</span><span class="t">홈페이지를 열고 <b>맨 아래(footer)까지 스크롤</b>합니다.</span></div>
+    <div class="step"><span class="n">2</span><span class="t">화면 맨 하단의 <b>「· 관리자 ·」</b> 작은 글씨를 클릭합니다.</span></div>
+    <div class="step"><span class="n">3</span><span class="t">비밀번호 입력창이 뜨면 아래 번호를 입력하고 <b>[확인]</b>을 누릅니다.</span></div>
+    <div style="text-align:center"><span class="pin">●●●●</span></div>
+    <div class="note">🔒 비밀번호는 <b>보안을 위해 이 공개 안내서에는 표기하지 않았습니다.</b> 별도 보관 중인 원본 안내서를 확인하세요.</div>
+  </div>
+
+  <div class="card">
+    <h2>🗂️ 2. 관리자 페이지에서 할 수 있는 것 (탭 5개)</h2>
+    <table>
+      <tr><th>👤 기본 정보</th><td>이름·직함, 전화번호, 카카오톡, 이메일 등 <b>연락처 정보</b>를 수정합니다.</td></tr>
+      <tr><th>📷 사진 관리</th><td><b>프로필 사진</b>, <b>강의 현장 사진 4장</b>, <b>이달의 소식 사진 3장</b>을 새 사진으로 교체하고 설명을 답니다.</td></tr>
+      <tr><th>💬 후기 관리</th><td><b>수강 후기</b>를 수정·삭제하거나 <b>[+ 후기 추가]</b>로 새 후기를 올립니다.</td></tr>
+      <tr><th>🔔 문의 알림</th><td><b>텔레그램 실시간 알림</b> 연결을 확인합니다. 봇 토큰은 <span class="hl">서버에만 보관</span>되므로 이 화면에 넣지 않습니다. [채팅 ID 찾기]·[테스트 전송]으로 확인만 하시면 됩니다.</td></tr>
+      <tr><th>📊 방문 분석</th><td>구글 애널리틱스(GA4)·네이버 애널리틱스 <b>방문자 통계</b> 연동(선택).</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>💾 3. 저장은 꼭 2단계 (중요)</h2>
+    <div class="step"><span class="n">1</span><span class="t"><b>[변경사항 적용]</b> — 방금 바꾼 내용을 <b>지금 이 화면</b>에 먼저 보여 줍니다. 아직 <b>나에게만</b> 보입니다.</span></div>
+    <div class="step"><span class="n">2</span><span class="t"><b>[🌐 웹에 반영하기]</b> — 진짜 홈페이지에 올려 <b>모든 방문자에게</b> 보이게 합니다. 비밀번호를 한 번 더 물어봅니다.</span></div>
+    <div class="note">⚠️ [변경사항 적용]만 하면 <b>내 컴퓨터 화면에만</b> 보입니다. 반드시 <b>[🌐 웹에 반영하기]</b>까지 눌러 주세요. 누른 뒤 <b>30초쯤</b> 기다렸다가 홈페이지를 새로고침(F5)하면 바뀐 내용이 나타납니다.</div>
+    <div class="ok" style="margin-top:10px">💡 예전에는 파일을 내려받아 직접 올려야 했지만 이제 그럴 필요가 없습니다. <b>[HTML 파일로 저장]</b>은 백업용으로만 남겨 두었습니다.</div>
+  </div>
+
+  <div class="card">
+    <h2>✅ 4. 현재 설정 상태 (참고)</h2>
+    <div class="ok">
+      • 문의가 접수되면 배수정 센터장님 텔레그램으로 <b>자동 알림</b>이 전송됩니다.<br>
+      • 봇 토큰은 홈페이지 파일이 아니라 <b>버셀(Vercel) 서버 안에만</b> 보관됩니다.<br>
+      • 관리자 비밀번호: <b>별도 보관 (공개 안내서 미표기)</b>
+    </div>
+    <div class="note">🔐 <b>비밀번호가 두 가지입니다.</b> ① 관리자 화면을 여는 번호 ② <b>[🌐 웹에 반영하기]</b>를 누를 때 묻는 번호. ②번이 진짜 잠금이며, 홈페이지 파일을 아무리 뜯어봐도 알 수 없습니다.</div>
+  </div>
+
+  <p class="foot">배수정 · KB손해보험 울산동구센터장 · 관리자 안내서</p>
+</div>
+</body></html>
