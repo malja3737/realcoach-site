@@ -797,6 +797,57 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
   .reveal.in{opacity:1;transform:none;}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+
+  /* ===== 화면에서 직접 고치기 (편집 모드) =====
+     관리자가 켰을 때만 나타납니다. 손님 화면에는 아무 영향이 없습니다. */
+  .cms-on{padding-top:56px;}
+  .cms-bar{
+    position:fixed;top:0;left:0;right:0;z-index:99999;
+    background:#0E7C7B;color:#fff;
+    display:flex;align-items:center;gap:12px;
+    padding:10px 16px;font-size:14.5px;font-weight:600;
+    box-shadow:0 4px 18px -6px rgba(0,0,0,.45);
+  }
+  .cms-bar .cms-msg{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;}
+  .cms-bar button{
+    flex:none;border:none;border-radius:8px;cursor:pointer;
+    font-family:inherit;font-size:14px;font-weight:700;padding:8px 14px;
+  }
+  .cms-bar .cms-save{background:#fff;color:#0E7C7B;}
+  .cms-bar .cms-cancel{background:rgba(255,255,255,.18);color:#fff;}
+  .cms-bar button:hover{opacity:.88;}
+  .cms-bar .cms-count{
+    flex:none;background:rgba(0,0,0,.22);border-radius:999px;
+    padding:3px 11px;font-size:13px;font-weight:700;
+  }
+  @media(max-width:560px){
+    .cms-bar{gap:8px;padding:9px 11px;font-size:13px;}
+    .cms-bar button{padding:7px 11px;font-size:13px;}
+    .cms-bar .cms-msg{display:none;}
+  }
+
+  /* 고칠 수 있는 곳 표시 */
+  .cms-on [data-cms]{
+    outline:1.5px dashed rgba(14,124,123,.45);
+    outline-offset:3px;border-radius:3px;cursor:text;
+    transition:outline-color .15s ease,background .15s ease;
+  }
+  .cms-on [data-cms]:hover{outline-color:#0E7C7B;background:rgba(14,124,123,.07);}
+  .cms-on [data-cms]:focus{
+    outline:2.5px solid #0E7C7B;background:rgba(14,124,123,.06);
+    box-shadow:0 0 0 4px rgba(14,124,123,.14);
+  }
+  .cms-on [data-cms-changed]{outline-color:#C2410C;outline-style:solid;}
+
+  /* 사진 바꾸기 */
+  .cms-on [data-cms-img]{outline:1.5px dashed rgba(14,124,123,.45);outline-offset:3px;cursor:pointer;}
+  .cms-on [data-cms-img]:hover{outline:2.5px solid #0E7C7B;}
+  .cms-imgtip{
+    position:fixed;z-index:99998;pointer-events:none;
+    background:#0E7C7B;color:#fff;border-radius:8px;
+    padding:6px 11px;font-size:13px;font-weight:700;
+    box-shadow:0 6px 18px -8px rgba(0,0,0,.5);
+  }
 </style>
 
 <!-- 관리자 페이지의 「웹에 반영하기」로 저장된 내용.
@@ -1895,7 +1946,8 @@ function showResult(){
       <button class="admin-x" data-close-admin aria-label="닫기">✕</button>
     </div>
     <div class="admin-menu">
-      <button type="button" class="am-tab on" data-tab="info">👤 기본 정보</button>
+      <button type="button" class="am-tab on" data-tab="edit">✏️ 화면에서 고치기</button>
+      <button type="button" class="am-tab" data-tab="info">👤 기본 정보</button>
       <button type="button" class="am-tab" data-tab="photo">📷 사진 관리</button>
       <button type="button" class="am-tab" data-tab="review">💬 후기 관리</button>
       <button type="button" class="am-tab" data-tab="notify">🔔 문의 알림</button>
@@ -1903,7 +1955,27 @@ function showResult(){
     </div>
     <div class="admin-body">
 
-      <div class="admin-tab" id="tab-info">
+      <div class="admin-tab" id="tab-edit">
+        <div class="admin-sec">
+          <h4>홈페이지 글과 사진을 화면에서 바로 고치기</h4>
+          <p class="admin-hint" style="margin:0 0 16px">
+            아래 단추를 누르면 <b>홈페이지 화면으로 돌아가면서 편집 모드가 켜집니다.</b>
+            고치고 싶은 글자를 그냥 <b>클릭해서 고치시면</b> 됩니다. 사진도 클릭하면 바꿀 수 있어요.
+          </p>
+          <div class="admin-step"><i>1</i><span>아래 <b>[✏️ 편집 모드 켜기]</b>를 누릅니다.</span></div>
+          <div class="admin-step"><i>2</i><span>고칠 글자를 <b>클릭</b>해서 고칩니다. 고친 곳은 <b>주황색 테두리</b>로 표시됩니다.</span></div>
+          <div class="admin-step"><i>3</i><span>사진을 바꾸려면 <b>사진을 클릭</b>하고 새 사진 파일을 고릅니다.</span></div>
+          <div class="admin-step"><i>4</i><span>다 되면 위쪽 띠의 <b>[저장하고 나가기]</b> → 마지막으로 <b>[🌐 웹에 반영하기]</b>를 누릅니다.</span></div>
+          <button type="button" class="admin-btn primary" id="cmsStart" style="width:100%;margin-top:18px;padding:14px">✏️ 편집 모드 켜기</button>
+          <div class="admin-info-box" style="margin-top:16px">
+            💡 <b>마음 놓고 고치셔도 됩니다.</b> [저장하고 나가기]를 누르기 전까지는 아무것도 저장되지 않고,
+            저장하더라도 <b>[🌐 웹에 반영하기]</b>를 누르기 전에는 손님에게 보이지 않습니다.
+            되돌리고 싶으면 관리자 페이지의 <b>[초기화]</b>를 누르면 처음 상태로 돌아갑니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-tab" id="tab-info" hidden>
         <div class="admin-sec">
           <h4>이름·직함·연락처</h4>
           <label>이름<input type="text" data-adm="name" placeholder="배수정"></label>
@@ -2268,11 +2340,19 @@ function showResult(){
     if(m.photo) d.photo=m.photo;
     if(d.gallery) d.gallery.forEach(function(g,i){ if(g&&m['gal'+i]) g.src=m['gal'+i]; });
     if(d.news) d.news.forEach(function(n,i){ if(n&&m['news'+i]) n.src=m['news'+i]; });
+    /* 화면에서 직접 바꾼 사진 (cms_ 로 시작하는 것들) */
+    Object.keys(m).forEach(function(id){
+      if(id.indexOf('cms_')!==0) return;
+      d.cmsImg=d.cmsImg||{};
+      d.cmsImg[id.slice(4)]=m[id];
+    });
     return d;
   }
 
   function applyStore(d){
     if(!d) return;
+    /* 화면에서 고친 글이 먼저다 — 그래야 그 위에 이름·전화번호 바꾸기가 얹힌다 */
+    cmsApply(d.cms, d.cmsImg);
     if(d.photo && img) img.src=d.photo;
     applyVals(d);
     applyGallery(d.gallery);
@@ -2285,6 +2365,9 @@ function showResult(){
   /* 화면에 얹는 순서 — 원래 HTML 위에 ① 반영된 것, 그 위에 ② 고치는 중인 것.
      그래야 손님은 반영된 것만 보고, 센터장님은 고치는 중인 것을 미리 볼 수 있다. */
   function load(){
+    /* 고칠 곳마다 이름표를 붙인다. 반드시 아무것도 바꾸기 전에 해야
+       원본 글자를 기준으로 이름표가 만들어져 나중에도 계속 들어맞는다. */
+    cmsBuildIndex();
     applyStore(publishedStore());
     var raw=null; try{raw=localStorage.getItem(KEY);}catch(e){}
     if(raw){
@@ -2506,7 +2589,9 @@ function showResult(){
     if(gaEl) window.__GA=gaEl.value.trim();
     if(nvEl) window.__NAVER=nvEl.value.trim();
     injectAnalytics();
-    var store={photo:(pendingPhoto||prev.photo||null),name:v.name,title:v.title,phone:v.phone,kakao:v.kakao,email:v.email,gallery:galStore,news:newsStore,reviews:rv.length?rv:(prev.reviews||null),ga:window.__GA||'',naver:window.__NAVER||''};
+    /* cms·cmsImg 는 「화면에서 고치기」가 저장한 것이다.
+       여기서 통째로 갈아끼우므로, 함께 옮겨 담지 않으면 지워진다. */
+    var store={photo:(pendingPhoto||prev.photo||null),name:v.name,title:v.title,phone:v.phone,kakao:v.kakao,email:v.email,gallery:galStore,news:newsStore,reviews:rv.length?rv:(prev.reviews||null),ga:window.__GA||'',naver:window.__NAVER||'',cms:prev.cms||{},cmsImg:prev.cmsImg||{}};
     try{ localStorage.setItem(KEY,JSON.stringify(store)); }
     catch(e){ alert('저장 공간이 부족합니다. 사진 용량을 줄여 다시 시도해 주세요.'); }
     pendingPhoto=null; pendingGal={}; pendingNews={};
@@ -2563,6 +2648,9 @@ function showResult(){
     data.photo=pull(data.photo,'photo');
     if(data.gallery) data.gallery.forEach(function(g,i){ if(g) g.src=pull(g.src,'gal'+i); });
     if(data.news) data.news.forEach(function(n,i){ if(n) n.src=pull(n.src,'news'+i); });
+    if(data.cmsImg) Object.keys(data.cmsImg).forEach(function(k){
+      data.cmsImg[k]=pull(data.cmsImg[k],'cms_'+k);   /* 화면에서 바꾼 사진 */
+    });
 
     var LIMIT=3*1024*1024;
     var batches=[], cur={}, size=0;
@@ -2596,6 +2684,11 @@ function showResult(){
           if(j.media.photo) data.photo=j.media.photo;
           if(data.gallery) data.gallery.forEach(function(g,i){ if(g&&j.media['gal'+i]) g.src=j.media['gal'+i]; });
           if(data.news) data.news.forEach(function(n,i){ if(n&&j.media['news'+i]) n.src=j.media['news'+i]; });
+          Object.keys(j.media).forEach(function(id){
+            if(id.indexOf('cms_')!==0) return;
+            data.cmsImg=data.cmsImg||{};
+            data.cmsImg[id.slice(4)]=j.media[id];
+          });
           try{ localStorage.setItem(KEY,JSON.stringify(data)); }catch(e){}
         }
         stop();
@@ -2655,6 +2748,211 @@ function showResult(){
       if(p>=m&&!scrollMarks[m]){ scrollMarks[m]=true; track('scroll_depth',{percent:m}); }
     });
   },{passive:true});
+
+  /* ===== 화면에서 직접 고치기 =====
+     입력칸을 175개 늘어놓는 대신, 보이는 글자를 그 자리에서 고치게 한다.
+     고칠 곳마다 붙이는 이름표는 「태그 + 원본 글자의 지문」이다.
+     그래서 순서가 바뀌어도 들어맞고, 원본 글을 나중에 손보면
+     옛 수정본이 저절로 무시돼 엉뚱한 자리에 붙지 않는다. */
+
+  var CMS_EXCL='.admin-overlay,.admin-box,#adminGate,nav,header,script,style,#nl,.cms-bar';
+  var CMS_INLINE={B:1,STRONG:1,EM:1,I:1,BR:1,SMALL:1,U:1,SUP:1,SUB:1};
+  var CMS_PLAIN=(function(){
+    try{ var d=document.createElement('div'); d.contentEditable='plaintext-only'; return d.contentEditable==='plaintext-only'; }
+    catch(e){ return false; }
+  })();
+  var cmsMode=false, cmsDraft={}, cmsDraftImg={}, cmsDraftLegacy=[], cmsBar=null;
+
+  function cmsFingerprint(s){
+    var h=5381, i=s.length;
+    while(i) h=((h*33) ^ s.charCodeAt(--i))>>>0;
+    return h.toString(36);
+  }
+  function cmsKind(el){
+    if(el.closest(CMS_EXCL)) return null;
+    if(el.hasAttribute('data-adm')||el.closest('[data-adm]')) return null;   /* 기본 정보 탭이 따로 다룬다 */
+    if((el.textContent||'').trim().length<2) return null;                    /* ☰ 같은 아이콘은 뺀다 */
+    var kids=el.children;
+    if(!kids.length) return 'text';
+    for(var i=0;i<kids.length;i++) if(!CMS_INLINE[kids[i].tagName]) return null;
+    return 'html';
+  }
+  function cmsBuildIndex(){
+    var picked=[], seen={};
+    $$('h1,h2,h3,h4,h5,p,li,span,blockquote,td,th,button,a,figcaption').forEach(function(el){
+      var kind=cmsKind(el); if(!kind) return;
+      for(var i=0;i<picked.length;i++) if(picked[i].contains(el)) return;    /* 부모가 이미 잡혔으면 건너뛴다 */
+      picked.push(el);
+      var raw=(kind==='html'?el.innerHTML:el.textContent).trim();
+      var base=el.tagName+'-'+cmsFingerprint(raw), k=base, n=1;
+      while(seen[k]) k=base+'-'+(++n);
+      seen[k]=1;
+      el.setAttribute('data-cms',k);
+      el.setAttribute('data-cms-kind',kind);
+    });
+    var seenImg={};
+    $$('img').forEach(function(im){
+      if(im.closest(CMS_EXCL)) return;
+      var base='IMG-'+cmsFingerprint((im.getAttribute('alt')||'')+'|'+(im.className||'')), k=base, n=1;
+      while(seenImg[k]) k=base+'-'+(++n);
+      seenImg[k]=1;
+      im.setAttribute('data-cms-img',k);
+    });
+  }
+  /* 프로필·강의사진·소식사진은 「사진 관리」 탭이 쓰던 자리가 이미 있다.
+     편집 모드에서 눌러 바꿔도 그 자리에 그대로 넣어야 두 화면이 어긋나지 않는다. */
+  function cmsLegacyTarget(im){
+    if(im.id==='profileImg') return {kind:'photo'};
+    var g=im.closest('.gal-item');
+    if(g) return {kind:'gallery', i:$$('.gal-grid .gal-item').indexOf(g)};
+    var n=im.closest('.news-item');
+    if(n) return {kind:'news', i:$$('.news-grid .news-item').indexOf(n)};
+    return null;
+  }
+  /* 붙여넣기로 딸려 들어온 서식을 걷어낸다 — 굵게·기울임·줄바꿈만 남긴다 */
+  function cmsClean(html){
+    var box=document.createElement('div');
+    box.innerHTML=String(html||'');
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType===1){
+          if(!CMS_INLINE[n.tagName]){ node.replaceChild(document.createTextNode(n.textContent||''),n); return; }
+          while(n.attributes.length) n.removeAttribute(n.attributes[0].name);
+          walk(n);
+        } else if(n.nodeType!==3){ node.removeChild(n); }
+      });
+    })(box);
+    return box.innerHTML;
+  }
+  function cmsApply(cms,cmsImg){
+    if(cms) Object.keys(cms).forEach(function(k){
+      var el=document.querySelector('[data-cms="'+k+'"]'); if(!el) return;
+      if(el.getAttribute('data-cms-kind')==='html') el.innerHTML=cmsClean(cms[k]);
+      else el.textContent=cms[k];
+    });
+    if(cmsImg) Object.keys(cmsImg).forEach(function(k){
+      var el=document.querySelector('[data-cms-img="'+k+'"]');
+      if(el&&cmsImg[k]) el.src=cmsImg[k];
+    });
+  }
+
+  function cmsCount(){ return Object.keys(cmsDraft).length+Object.keys(cmsDraftImg).length+cmsDraftLegacy.length; }
+  function cmsRefreshBar(){ var c=$('#cmsCount'); if(c) c.textContent=cmsCount()+'곳 고침'; }
+  var CMS_HINT='고칠 글자를 눌러 바로 고치세요. 사진은 눌러서 바꿉니다.';
+  function cmsSay(msg){
+    var m=$('#cmsMsg'); if(!m) return;
+    m.textContent=msg;
+    clearTimeout(cmsSay._t);
+    cmsSay._t=setTimeout(function(){ if($('#cmsMsg')) $('#cmsMsg').textContent=CMS_HINT; },2800);
+  }
+  function cmsHit(e){ return (e.target&&e.target.closest)?e.target.closest('[data-cms]'):null; }
+  function cmsOnInput(e){
+    var el=cmsHit(e); if(!el) return;
+    cmsDraft[el.getAttribute('data-cms')] =
+      el.getAttribute('data-cms-kind')==='html' ? cmsClean(el.innerHTML) : el.textContent;
+    el.setAttribute('data-cms-changed','1');
+    cmsRefreshBar();
+  }
+  function cmsOnPaste(e){
+    var el=cmsHit(e); if(!el) return;
+    e.preventDefault();
+    var t=(((e.clipboardData||window.clipboardData)||{}).getData?((e.clipboardData||window.clipboardData).getData('text/plain')||''):'');
+    try{ document.execCommand('insertText',false,t.replace(/\s+/g,' ')); }catch(err){}
+  }
+  function cmsOnKey(e){
+    if(!cmsMode||e.key!=='Enter') return;
+    if(!cmsHit(e)) return;
+    e.preventDefault();
+    cmsSay('여기서는 줄바꿈이 홈페이지에 반영되지 않습니다.');
+  }
+  function cmsPickImg(e){
+    if(!cmsMode) return;
+    e.preventDefault(); e.stopPropagation();
+    var im=e.currentTarget;
+    var inp=document.createElement('input');
+    inp.type='file'; inp.accept='image/*';
+    inp.addEventListener('change',function(){
+      var f=inp.files&&inp.files[0]; if(!f) return;
+      if(f.size>4*1024*1024){ alert('사진이 너무 큽니다.\n4MB 이하로 줄여서 다시 골라 주세요.'); return; }
+      var r=new FileReader();
+      r.onload=function(){
+        im.src=r.result;
+        var t=cmsLegacyTarget(im);
+        if(t) cmsDraftLegacy.push({t:t,src:r.result});
+        else cmsDraftImg[im.getAttribute('data-cms-img')]=r.result;
+        cmsRefreshBar(); cmsSay('사진을 바꿨습니다.');
+      };
+      r.readAsDataURL(f);
+    });
+    inp.click();
+  }
+
+  function cmsEnter(){
+    if(cmsMode) return;
+    cmsMode=true; cmsDraft={}; cmsDraftImg={}; cmsDraftLegacy=[];
+    closeAdmin();
+    document.body.classList.add('cms-on');
+    $$('[data-cms]').forEach(function(el){
+      el.setAttribute('contenteditable',(el.getAttribute('data-cms-kind')==='text'&&CMS_PLAIN)?'plaintext-only':'true');
+      el.setAttribute('spellcheck','false');
+    });
+    $$('[data-cms-img]').forEach(function(im){ im.addEventListener('click',cmsPickImg); });
+    document.addEventListener('input',cmsOnInput,true);
+    document.addEventListener('paste',cmsOnPaste,true);
+    document.addEventListener('keydown',cmsOnKey,true);
+    cmsBar=document.createElement('div');
+    cmsBar.className='cms-bar';
+    cmsBar.innerHTML='<span class="cms-count" id="cmsCount">0곳 고침</span>'+
+      '<span class="cms-msg" id="cmsMsg">'+CMS_HINT+'</span>'+
+      '<button type="button" class="cms-cancel" id="cmsCancel">취소</button>'+
+      '<button type="button" class="cms-save" id="cmsSave">저장하고 나가기</button>';
+    document.body.appendChild(cmsBar);
+    $('#cmsSave').addEventListener('click',function(){ cmsFinish(true); });
+    $('#cmsCancel').addEventListener('click',function(){
+      if(cmsCount()&&!confirm('고치신 내용을 버리고 나갈까요?')) return;
+      cmsFinish(false);
+    });
+    window.scrollTo(0,0);
+  }
+
+  function cmsFinish(save){
+    if(!cmsMode) return;
+    var changed=cmsCount();
+    cmsMode=false;
+    document.body.classList.remove('cms-on');
+    $$('[data-cms]').forEach(function(el){
+      el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck'); el.removeAttribute('data-cms-changed');
+    });
+    $$('[data-cms-img]').forEach(function(im){ im.removeEventListener('click',cmsPickImg); });
+    document.removeEventListener('input',cmsOnInput,true);
+    document.removeEventListener('paste',cmsOnPaste,true);
+    document.removeEventListener('keydown',cmsOnKey,true);
+    if(cmsBar&&cmsBar.parentNode) cmsBar.parentNode.removeChild(cmsBar);
+    cmsBar=null;
+    if(!save){ location.reload(); return; }        /* 되돌리기는 새로고침이 가장 확실하다 */
+    if(!changed){ alert('고치신 곳이 없습니다.'); return; }
+    var prev={}; try{ prev=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+    prev.cms=prev.cms||{}; prev.cmsImg=prev.cmsImg||{};
+    Object.keys(cmsDraft).forEach(function(k){ prev.cms[k]=cmsDraft[k]; });
+    Object.keys(cmsDraftImg).forEach(function(k){ prev.cmsImg[k]=cmsDraftImg[k]; });
+    /* 프로필·강의사진·소식사진은 「사진 관리」 탭과 같은 자리에 넣는다 */
+    cmsDraftLegacy.forEach(function(e){
+      if(e.t.kind==='photo'){ prev.photo=e.src; return; }
+      var arr=e.t.kind==='gallery'?'gallery':'news';
+      prev[arr]=prev[arr]||[];
+      prev[arr][e.t.i]=prev[arr][e.t.i]||{src:null,cap:''};
+      prev[arr][e.t.i].src=e.src;
+    });
+    try{
+      localStorage.setItem(KEY,JSON.stringify(prev));
+      alert(changed+'곳을 저장했습니다.\n\n아직 이 컴퓨터에서만 보입니다.\n손님에게도 보이게 하려면 관리자 페이지의\n[🌐 웹에 반영하기]를 눌러 주세요.');
+    }catch(e){
+      alert('저장 공간이 부족합니다.\n사진 용량을 줄여 다시 시도해 주세요.');
+    }
+  }
+
+  var cmsBtn=$('#cmsStart');
+  if(cmsBtn) cmsBtn.addEventListener('click',cmsEnter);
 
   load();
   injectAnalytics();
