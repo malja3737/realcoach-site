@@ -1,81 +1,235 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>배수정 홈페이지 · 관리자 페이지 사용 안내서</title>
+<meta name="robots" content="noindex,nofollow">
+<title>홈페이지 직접 고치는 법 · 배수정 센터장님용 안내서</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
-  :root{--navy:#2A3560;--plum:#5E4B7B;--lavender:#7C6BAF;--pink:#E9D5E4;--pink-soft:#F4E8F1;--ink:#141219;--muted:#3E3947;--line:#E6E0DA;--ivory:#FBF9F5;}
+  :root{
+    --navy:#2A3560;--plum:#5E4B7B;--lavender:#7C6BAF;
+    --pink:#E9D5E4;--pink-soft:#F4E8F1;
+    --ink:#171520;--body:#3B3547;--muted:#6C6478;
+    --line:#E7E1EC;--ivory:#FBF9F6;--white:#fff;
+    --edit:#0E7C7B;--edit-soft:#E6F2F1;--edit-line:#B9DBD9;
+    --warn:#B4511F;--warn-soft:#FDF1E8;--warn-line:#F0D2BC;
+  }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Pretendard Variable','Pretendard',sans-serif;background:var(--ivory);color:var(--ink);line-height:1.7;word-break:keep-all;padding:36px 20px;font-weight:500;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:760px;margin:0 auto;}
-  h1{font-size:26px;font-weight:800;color:var(--navy);margin-bottom:6px;letter-spacing:-.01em;}
-  .sub{color:var(--muted);font-size:14.5px;margin-bottom:26px;}
-  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:18px;box-shadow:0 16px 40px -26px rgba(42,53,96,.25);}
-  h2{font-size:18px;font-weight:800;color:var(--plum);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-  .step{display:flex;gap:12px;margin:10px 0;}
-  .step .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
-  .step .t{font-size:15px;padding-top:1px;}
-  .pin{display:inline-block;background:var(--pink-soft);border:1.5px solid var(--pink);color:var(--plum);font-weight:800;font-size:22px;letter-spacing:3px;padding:8px 20px;border-radius:12px;margin:6px 0;}
-  table{width:100%;border-collapse:collapse;margin-top:6px;}
-  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-size:14.5px;vertical-align:top;}
-  th{background:var(--pink-soft);color:var(--navy);font-weight:700;width:130px;white-space:nowrap;}
-  .note{background:#FFF9E9;border:1px solid #F0E2B8;border-radius:12px;padding:14px 16px;font-size:14px;color:#6b5a1e;margin-top:10px;}
-  .ok{background:#EAF7EE;border:1px solid #BFE4C9;border-radius:12px;padding:14px 16px;font-size:14px;color:#1f6b39;}
-  b{font-weight:800;} .hl{color:var(--plum);font-weight:800;}
-  .foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:20px;}
+  body{
+    font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',sans-serif;
+    background:var(--ivory);color:var(--body);
+    font-size:16.5px;line-height:1.78;font-weight:450;
+    word-break:keep-all;-webkit-font-smoothing:antialiased;
+    padding:0 18px 70px;
+  }
+  .wrap{max-width:740px;margin:0 auto;}
+
+  header{padding:52px 0 0;text-align:center;}
+  .kicker{font-size:13.5px;font-weight:700;letter-spacing:.08em;color:var(--lavender);margin-bottom:12px;}
+  h1{font-size:clamp(25px,5.4vw,33px);font-weight:800;color:var(--navy);line-height:1.34;letter-spacing:-.01em;text-wrap:balance;}
+  header p{margin-top:14px;color:var(--muted);font-size:15.5px;}
+
+  /* 제일 위 요약 */
+  .tldr{
+    margin:32px 0 0;background:var(--navy);color:#fff;
+    border-radius:20px;padding:26px 26px 24px;
+    box-shadow:0 22px 48px -32px rgba(42,53,96,.7);
+  }
+  .tldr h2{font-size:18px;font-weight:800;margin-bottom:6px;color:#fff;}
+  .tldr p{color:rgba(255,255,255,.82);font-size:15px;margin-bottom:18px;}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;}
+  .flow .s{
+    flex:1 1 160px;background:rgba(255,255,255,.11);
+    border:1px solid rgba(255,255,255,.2);border-radius:13px;padding:14px 15px;
+  }
+  .flow .s b{display:block;font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;}
+  .flow .s span{font-size:13.5px;color:rgba(255,255,255,.76);line-height:1.6;}
+
+  .card{
+    background:var(--white);border:1px solid var(--line);border-radius:18px;
+    padding:26px 28px;margin-top:20px;
+    box-shadow:0 18px 40px -34px rgba(42,53,96,.4);
+  }
+  h2{
+    font-size:20px;font-weight:800;color:var(--plum);
+    margin-bottom:14px;line-height:1.45;text-wrap:balance;
+  }
+  h3{font-size:16px;font-weight:700;color:var(--navy);margin:20px 0 8px;}
+  p{margin-bottom:12px;}
+  p:last-child{margin-bottom:0;}
+  b,strong{font-weight:700;color:var(--ink);}
+  .hl{color:var(--plum);font-weight:800;}
+
+  .step{display:flex;gap:13px;margin:11px 0;align-items:flex-start;}
+  .step .n{
+    flex:none;width:27px;height:27px;border-radius:50%;
+    background:var(--navy);color:#fff;font-weight:700;font-size:14px;
+    display:flex;align-items:center;justify-content:center;margin-top:3px;
+  }
+  .step .t{font-size:15.5px;}
+
+  .btnish{
+    display:inline-block;background:var(--pink-soft);border:1.5px solid var(--pink);
+    color:var(--plum);font-weight:800;font-size:14.5px;
+    border-radius:9px;padding:2px 11px;white-space:nowrap;
+  }
+  .btnish.edit{background:var(--edit-soft);border-color:var(--edit-line);color:var(--edit);}
+
+  .note,.warn,.ok{border-radius:13px;padding:15px 18px;font-size:15px;margin-top:14px;line-height:1.7;}
+  .note{background:var(--pink-soft);border:1px solid var(--pink);color:var(--plum);}
+  .warn{background:var(--warn-soft);border:1px solid var(--warn-line);color:var(--warn);}
+  .ok{background:var(--edit-soft);border:1px solid var(--edit-line);color:var(--edit);}
+  .note b,.warn b,.ok b{color:inherit;}
+
+  .tablewrap{overflow-x:auto;margin-top:6px;border:1px solid var(--line);border-radius:13px;}
+  table{width:100%;border-collapse:collapse;min-width:430px;}
+  th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top;}
+  th{background:var(--pink-soft);color:var(--navy);font-weight:800;width:150px;white-space:nowrap;}
+  tr:last-child th,tr:last-child td{border-bottom:none;}
+
+  .qa{border-top:1px solid var(--line);padding-top:16px;margin-top:16px;}
+  .qa:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+  .qa .q{font-weight:800;color:var(--navy);font-size:16px;margin-bottom:6px;}
+  .qa .a{font-size:15.5px;}
+
+  footer{margin-top:34px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.8;}
+
+  /* 폰에서는 표를 옆으로 밀지 않고 위아래로 쌓아서 보여 준다 */
+  @media(max-width:560px){
+    body{padding:0 14px 56px;font-size:16px;}
+    .card{padding:22px 19px;border-radius:16px;}
+    .tldr{padding:22px 20px;border-radius:16px;}
+    .tablewrap{overflow:visible;border:none;border-radius:0;}
+    table{min-width:0;display:block;}
+    tbody,tr,th,td{display:block;width:auto;}
+    tr{
+      background:var(--white);border:1px solid var(--line);
+      border-radius:13px;margin-bottom:10px;overflow:hidden;
+    }
+    tr:last-child{margin-bottom:0;}
+    th{width:auto;white-space:normal;border-bottom:1px solid var(--line);}
+    td{border-bottom:none;}
+    tr:last-child th{border-bottom:1px solid var(--line);}
+  }
 </style></head><body>
 <div class="wrap">
-  <h1>배수정 홈페이지 · 관리자 페이지 사용 안내서</h1>
-  <p class="sub">관리자 페이지는 <b>홈페이지 안에 내장</b>되어 있습니다. 별도 주소·파일이 아니라, 홈페이지 화면에서 바로 열립니다.</p>
 
-  <div class="card">
-    <h2>🔑 1. 관리자 페이지 여는 방법</h2>
-    <div class="step"><span class="n">1</span><span class="t">홈페이지를 열고 <b>맨 아래(footer)까지 스크롤</b>합니다.</span></div>
-    <div class="step"><span class="n">2</span><span class="t">화면 맨 하단의 <b>「· 관리자 ·」</b> 작은 글씨를 클릭합니다.</span></div>
-    <div class="step"><span class="n">3</span><span class="t">비밀번호 입력창이 뜨면 아래 번호를 입력하고 <b>[확인]</b>을 누릅니다.</span></div>
-    <div style="text-align:center"><span class="pin">●●●●</span></div>
-    <div class="note">🔒 비밀번호는 <b>보안을 위해 이 공개 안내서에는 표기하지 않았습니다.</b> 별도 보관 중인 원본 안내서를 확인하세요.</div>
-  </div>
+  <header>
+    <p class="kicker">배수정 · KB손해보험 울산동구센터장</p>
+    <h1>홈페이지, 이제 직접 고치실 수 있습니다</h1>
+    <p>업체에 연락하실 필요 없습니다. 글도 사진도 화면에서 바로 고치시면 됩니다.</p>
+  </header>
 
-  <div class="card">
-    <h2>🗂️ 2. 관리자 페이지에서 할 수 있는 것 (탭 5개)</h2>
-    <table>
-      <tr><th>✏️ 화면에서 고치기</th><td><b>홈페이지의 거의 모든 글과 사진</b>을 화면에서 직접 눌러 고칩니다. <span class="hl">평소에는 이것만 쓰시면 됩니다.</span> 자세한 방법은 아래 3번을 보세요.</td></tr>
-      <tr><th>👤 기본 정보</th><td>이름·직함, 전화번호, 카카오톡, 이메일 등 <b>연락처 정보</b>를 수정합니다. 여기서 바꾸면 홈페이지의 <b>모든 위치에 한 번에</b> 반영됩니다.</td></tr>
-      <tr><th>📷 사진 관리</th><td><b>프로필 사진</b>, <b>강의 현장 사진 4장</b>, <b>이달의 소식 사진 3장</b>을 새 사진으로 교체하고 설명을 답니다.</td></tr>
-      <tr><th>💬 후기 관리</th><td><b>수강 후기</b>를 수정·삭제하거나 <b>[+ 후기 추가]</b>로 새 후기를 올립니다.</td></tr>
-      <tr><th>🔔 문의 알림</th><td><b>텔레그램 실시간 알림</b> 연결을 확인합니다. 봇 토큰은 <span class="hl">서버에만 보관</span>되므로 이 화면에 넣지 않습니다. [채팅 ID 찾기]·[테스트 전송]으로 확인만 하시면 됩니다.</td></tr>
-      <tr><th>📊 방문 분석</th><td>구글 애널리틱스(GA4)·네이버 애널리틱스 <b>방문자 통계</b> 연동(선택).</td></tr>
-    </table>
-  </div>
-
-  <div class="card">
-    <h2>✏️ 3. 글·사진 고치는 가장 쉬운 방법</h2>
-    <p style="margin:0 0 12px;font-size:15px">관리자 페이지의 <b>[✏️ 화면에서 고치기]</b> 탭 → <b>[✏️ 편집 모드 켜기]</b>를 누르면, 홈페이지 화면으로 돌아가면서 <b>글자를 눌러 바로 고칠 수 있는 상태</b>가 됩니다.</p>
-    <div class="step"><span class="n">1</span><span class="t">고칠 <b>글자를 클릭</b>하고 고칩니다. 고친 곳은 <b>주황색 테두리</b>로 표시됩니다.</span></div>
-    <div class="step"><span class="n">2</span><span class="t"><b>사진을 클릭</b>하면 새 사진 파일을 고를 수 있습니다.</span></div>
-    <div class="step"><span class="n">3</span><span class="t">다 되면 화면 <b>맨 위 초록 띠</b>의 <b>[저장하고 나가기]</b>를 누릅니다.</span></div>
-    <div class="ok" style="margin:12px 0">💡 <b>마음 놓고 만져보셔도 됩니다.</b> [저장하고 나가기] 전에는 아무것도 저장되지 않습니다. 그만두려면 <b>[취소]</b>를 누르면 원래대로 돌아갑니다.</div>
-    <p class="admin-hint" style="font-size:14px;color:var(--muted);margin:0">※ 줄바꿈(엔터)은 홈페이지에 반영되지 않습니다. 글은 한 덩어리로 써 주세요.</p>
-  </div>
-
-  <div class="card">
-    <h2>💾 4. 저장은 꼭 2단계 (중요)</h2>
-    <div class="step"><span class="n">1</span><span class="t"><b>[저장하고 나가기]</b> 또는 <b>[변경사항 적용]</b> — 바꾼 내용을 <b>지금 이 화면</b>에 먼저 보여 줍니다. 아직 <b>나에게만</b> 보입니다.</span></div>
-    <div class="step"><span class="n">2</span><span class="t"><b>[🌐 웹에 반영하기]</b> — 진짜 홈페이지에 올려 <b>모든 방문자에게</b> 보이게 합니다. 비밀번호를 한 번 더 물어봅니다.</span></div>
-    <div class="note">⚠️ [변경사항 적용]만 하면 <b>내 컴퓨터 화면에만</b> 보입니다. 반드시 <b>[🌐 웹에 반영하기]</b>까지 눌러 주세요. 누른 뒤 <b>30초쯤</b> 기다렸다가 홈페이지를 새로고침(F5)하면 바뀐 내용이 나타납니다.</div>
-    <div class="ok" style="margin-top:10px">💡 예전에는 파일을 내려받아 직접 올려야 했지만 이제 그럴 필요가 없습니다. <b>[HTML 파일로 저장]</b>은 백업용으로만 남겨 두었습니다.</div>
-  </div>
-
-  <div class="card">
-    <h2>✅ 5. 현재 설정 상태 (참고)</h2>
-    <div class="ok">
-      • 문의가 접수되면 배수정 센터장님 텔레그램으로 <b>자동 알림</b>이 전송됩니다.<br>
-      • 봇 토큰은 홈페이지 파일이 아니라 <b>버셀(Vercel) 서버 안에만</b> 보관됩니다.<br>
-      • 관리자 비밀번호: <b>별도 보관 (공개 안내서 미표기)</b>
+  <section class="tldr">
+    <h2>먼저 큰 그림부터</h2>
+    <p>딱 세 단계입니다. 이것만 기억하시면 됩니다.</p>
+    <div class="flow">
+      <div class="s"><b>① 열기</b><span>홈페이지 맨 아래 「· 관리자 ·」</span></div>
+      <div class="s"><b>② 고치기</b><span>글자를 눌러서 그 자리에서 고침</span></div>
+      <div class="s"><b>③ 올리기</b><span>「웹에 반영하기」를 눌러야 손님에게 보임</span></div>
     </div>
-    <div class="note">🔐 <b>비밀번호가 두 가지입니다.</b> ① 관리자 화면을 여는 번호 ② <b>[🌐 웹에 반영하기]</b>를 누를 때 묻는 번호. ②번이 진짜 잠금이며, 홈페이지 파일을 아무리 뜯어봐도 알 수 없습니다.</div>
-  </div>
+  </section>
 
-  <p class="foot">배수정 · KB손해보험 울산동구센터장 · 관리자 안내서</p>
+  <section class="card">
+    <h2>🔑 1. 관리자 페이지 여는 법</h2>
+    <div class="step"><span class="n">1</span><span class="t">홈페이지(<b>realcoach1.com</b>)를 열고 <b>맨 아래까지</b> 쭉 내립니다.</span></div>
+    <div class="step"><span class="n">2</span><span class="t">화면 제일 밑의 작은 글씨 <span class="btnish">· 관리자 ·</span> 를 누릅니다.</span></div>
+    <div class="step"><span class="n">3</span><span class="t">비밀번호 네 자리를 넣고 <b>[확인]</b>을 누릅니다.</span></div>
+    <div class="note">🔒 비밀번호는 <b>이 안내서에 적지 않았습니다.</b> 이 문서는 인터넷에 올라가 있어서 아무나 볼 수 있기 때문입니다. 번호는 따로 알려드린 것을 쓰세요.</div>
+  </section>
+
+  <section class="card">
+    <h2>✏️ 2. 글과 사진 고치기 — 평소엔 이것만 쓰시면 됩니다</h2>
+    <p>관리자 페이지가 열리면 첫 번째 탭 <span class="btnish edit">✏️ 화면에서 고치기</span> 안의 <span class="btnish edit">✏️ 편집 모드 켜기</span> 를 누르세요. 홈페이지 화면으로 돌아가면서 <b>고칠 수 있는 상태</b>가 됩니다.</p>
+
+    <h3>글 고치기</h3>
+    <div class="step"><span class="n">1</span><span class="t">고치고 싶은 <b>글자를 그냥 누릅니다.</b> 커서가 생기면 지우고 새로 쓰시면 됩니다.</span></div>
+    <div class="step"><span class="n">2</span><span class="t">고친 곳은 <b style="color:var(--warn)">주황색 테두리</b>로 표시됩니다. 뭘 건드렸는지 한눈에 보입니다.</span></div>
+    <div class="step"><span class="n">3</span><span class="t">화면 <b>맨 위 초록색 띠</b>에 <b>「○곳 고침」</b> 숫자가 올라갑니다.</span></div>
+
+    <h3>사진 바꾸기</h3>
+    <div class="step"><span class="n">1</span><span class="t">바꾸고 싶은 <b>사진을 누릅니다.</b></span></div>
+    <div class="step"><span class="n">2</span><span class="t">컴퓨터에서 새 사진 파일을 고르면 <b>그 자리에서 바로 바뀝니다.</b></span></div>
+    <div class="warn">📷 사진은 <b>4MB 이하</b>여야 합니다. 너무 크면 안내가 뜨니, 그때는 사진을 조금 줄여서 다시 골라 주세요.</div>
+
+    <h3>다 고쳤으면</h3>
+    <p>맨 위 초록 띠의 <span class="btnish edit">저장하고 나가기</span> 를 누릅니다. 그만두고 싶으면 <span class="btnish">취소</span> 를 누르면 <b>손대기 전으로 완전히 돌아갑니다.</b></p>
+    <div class="ok">💡 <b>마음 놓고 만져보셔도 됩니다.</b> [저장하고 나가기]를 누르기 전에는 <b>아무것도 저장되지 않습니다.</b> 이것저것 눌러보시다가 [취소]를 누르면 그만입니다.</div>
+    <div class="note">↩️ <b>엔터(줄바꿈)는 홈페이지에 반영되지 않습니다.</b> 눌러도 안내만 뜨고 넘어가지 않습니다. 글은 한 덩어리로 이어서 써 주세요.</div>
+  </section>
+
+  <section class="card">
+    <h2>💾 3. 저장은 두 번 — 이게 제일 중요합니다</h2>
+    <p>고친 것을 손님에게도 보이게 하려면 <b>두 단계</b>를 다 거치셔야 합니다. 한 단계만 하면 <b>나에게만 보입니다.</b></p>
+
+    <div class="step"><span class="n">1</span><span class="t"><span class="btnish edit">저장하고 나가기</span> — 고친 내용이 <b>내 화면에만</b> 적용됩니다. 올리기 전에 마음에 드는지 먼저 보는 단계입니다.</span></div>
+    <div class="step"><span class="n">2</span><span class="t"><span class="btnish">🌐 웹에 반영하기</span> — 진짜 홈페이지에 올려 <b>모든 손님에게</b> 보이게 합니다. 관리자 페이지를 다시 열어 <b>맨 아래</b>에 있습니다.</span></div>
+
+    <div class="warn">⚠️ <b>[🌐 웹에 반영하기]를 누르지 않으면 손님에게는 예전 그대로 보입니다.</b> 고치고 나서 이 단추를 꼭 눌러 주세요.</div>
+    <div class="ok">⏱️ 누르고 나면 <b>30초쯤</b> 걸립니다. 잠시 뒤 홈페이지를 <b>새로고침(F5)</b> 하면 바뀐 내용이 보입니다.</div>
+  </section>
+
+  <section class="card">
+    <h2>🗂️ 4. 관리자 페이지의 다른 탭들</h2>
+    <p>평소엔 첫 탭 하나면 충분하지만, 아래 것들도 알아두시면 편합니다.</p>
+    <div class="tablewrap"><table>
+      <tr><th>✏️ 화면에서 고치기</th><td><b>거의 모든 글과 사진.</b> 평소엔 여기만 쓰시면 됩니다.</td></tr>
+      <tr><th>👤 기본 정보</th><td>이름·직함·<b>전화번호</b>·카카오톡·이메일. 여기서 바꾸면 홈페이지 <b>모든 자리에 한 번에</b> 바뀝니다. 전화번호가 바뀌셨을 때 특히 편합니다.</td></tr>
+      <tr><th>📷 사진 관리</th><td>프로필 사진, 강의 사진 4장, 이달의 소식 사진 3장을 <b>사진 설명과 함께</b> 바꿉니다. 사진만 바꾸실 거면 편집 모드에서 눌러도 됩니다.</td></tr>
+      <tr><th>💬 후기 관리</th><td>수강 후기를 고치거나 지우고, <b>[+ 후기 추가]</b>로 새 후기를 올립니다.</td></tr>
+      <tr><th>🔔 문의 알림</th><td>문의가 오면 <b>텔레그램으로 즉시 알림</b>을 받는 기능입니다. 아직 연결 전이며, 연결을 원하시면 말씀해 주세요.</td></tr>
+      <tr><th>📊 방문 분석</th><td>몇 명이 다녀갔는지 보는 통계 연결(선택 사항).</td></tr>
+    </table></div>
+    <div class="note">📩 <b>지금 문의는 이렇게 옵니다.</b> 손님이 문의를 넣으면 손님 휴대폰의 메일 앱이 열리면서 센터장님 메일(<b>malja3737@naver.com</b>)로 오게 되어 있습니다.</div>
+  </section>
+
+  <section class="card">
+    <h2>🔐 5. 비밀번호가 두 개인 이유</h2>
+    <p>두 번 물어봐서 번거로우실 수 있는데, 이유가 있습니다.</p>
+    <div class="tablewrap"><table>
+      <tr><th>① 관리자 화면<br>여는 번호</th><td>네 자리 번호입니다. 이건 <b>초인종</b> 같은 것이라, 마음먹으면 알아낼 수도 있습니다. <b>이것만으로는 홈페이지를 못 고칩니다.</b></td></tr>
+      <tr><th>② 웹에 반영할 때<br>묻는 번호</th><td>이게 <b>진짜 잠금</b>입니다. 홈페이지 파일 어디에도 없고 서버 안에만 있어서 <b>아무도 알아낼 수 없습니다.</b> 그래서 남이 함부로 홈페이지를 바꿀 수 없습니다.</td></tr>
+    </table></div>
+    <div class="ok">🔁 두 번호 모두 <b>언제든 바꿀 수 있습니다.</b> 바꾸고 싶으시면 말씀해 주세요.</div>
+  </section>
+
+  <section class="card">
+    <h2>❓ 6. 이럴 땐 이렇게</h2>
+
+    <div class="qa">
+      <div class="q">고쳤는데 손님 화면에는 그대로예요</div>
+      <div class="a"><b>[🌐 웹에 반영하기]</b>를 누르셨나요? 이걸 안 누르면 내 화면에만 보입니다. 누르셨다면 <b>30초 기다렸다가 새로고침(F5)</b> 해 보세요.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">비밀번호가 안 맞는다고 나와요</div>
+      <div class="a">번호가 두 개입니다. <b>관리자 화면을 열 때</b>와 <b>웹에 반영할 때</b> 묻는 번호가 서로 다릅니다. 위 5번을 확인해 보세요.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">잘못 고쳤어요. 되돌리고 싶어요</div>
+      <div class="a"><b>아직 [웹에 반영하기]를 누르기 전이라면</b> — 편집 모드의 <b>[취소]</b>를 누르거나, 관리자 페이지의 <b>[초기화]</b>를 누르면 됩니다.<br>
+      <b>이미 반영한 뒤라면</b> — 그 자리를 다시 고쳐서 [웹에 반영하기]를 한 번 더 누르시면 됩니다. 몇 번을 고치셔도 괜찮습니다.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">엔터가 안 눌러져요</div>
+      <div class="a">줄바꿈은 홈페이지에 반영되지 않아서 일부러 막아 두었습니다. 글은 이어서 한 덩어리로 써 주세요.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">사진이 안 바뀌어요</div>
+      <div class="a">사진 용량이 <b>4MB</b>를 넘으면 올라가지 않습니다. 휴대폰으로 찍은 사진은 큰 경우가 많으니, 카카오톡으로 나에게 보냈다가 다시 저장하면 크기가 줄어 편합니다.</div>
+    </div>
+
+    <div class="qa">
+      <div class="q">고치다가 화면이 이상해졌어요</div>
+      <div class="a">브라우저를 <b>새로고침(F5)</b> 하시면 저장 전 상태로 돌아갑니다. 저장하지 않은 것은 남지 않으니 걱정하지 않으셔도 됩니다.</div>
+    </div>
+  </section>
+
+  <footer>
+    배수정 · KB손해보험 울산동구센터장 · 홈페이지 관리 안내서<br>
+    막히는 부분이 있으면 이 안내서를 만든 담당자에게 화면을 캡처해서 보내주세요.
+  </footer>
 </div>
 </body></html>
