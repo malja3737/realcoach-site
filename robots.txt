@@ -23,4 +23,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://realcoach1.com/sitemap.xml
+Sitemap: https://www.realcoach1.com/sitemap.xml
